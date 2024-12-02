@@ -59,10 +59,6 @@
   - **Route**: `DELETE /posts/adminDeletePost/:id`  
   - **Description**: Allows admin users to delete any blog post by its ID.
 
-- **Delete All Comments on a Blog Post by ID (admin user)**  
-  - **Route**: `DELETE /posts/adminDeleteComments/:id`  
-  - **Description**: Deletes all comments for a specific blog post by its ID. Only accessible to admin users.
-
 - **Add a Comment to a Blog Post (authenticated user)**  
   - **Route**: `PATCH /posts/addComment/:id`  
   - **Description**: Adds a comment to a blog post by its ID. Only accessible to authenticated users.
@@ -70,3 +66,7 @@
 - **Get All Comments for a Blog Post (all users)**  
   - **Route**: `GET /posts/getComments/:id`  
   - **Description**: Fetches all comments for a specific blog post by its ID.
+
+- **Delete All Comments on a Blog Post by ID (admin user)**  
+  - **Route**: `DELETE /posts/adminDeleteComments/:id`  
+  - **Description**: Deletes all comments for a specific blog post by its ID. Only accessible to admin users.

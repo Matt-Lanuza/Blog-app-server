@@ -8,7 +8,7 @@ module.exports.registerUser = async (req, res) => {
 	try {
 		const {  email, username, password } = req.body;
 
-		if (!email || !email.includes("@")) {
+		if (!email || !email.includes("@blog.com")) {
 			return res.status(400).send({ error: "Invalid email address" });
 		}
 

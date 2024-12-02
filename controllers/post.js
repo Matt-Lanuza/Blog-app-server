@@ -237,7 +237,7 @@ module.exports.addComment = async (req, res) => {
 		res.status(200).send({
 			message: 'Comment added successfully',
 			updatedPost
-		})
+		});
 
 
 
@@ -255,16 +255,55 @@ module.exports.getComments = async (req, res) => {
 	try {
 		const postId = req.params.id;
 
+		// Find the post
 		const post = await Post.findById(postId);
 		if(!post) {
 			return res.status(404).send({ error: 'No post found' });
 		}
 
-		let getAllComments = post.comments
+		let getAllComments = post.comments;
 		res.status(200).send({comments: getAllComments});
 
 	} catch (error) {
       console.error(error);
       res.status(500).send({ message: "Server error" });
+  }
+};
+
+// Delete any comments by ID (admin user)
+module.exports.adminDeleteComment = async (req, res) => {
+  try {
+    const postId = req.params.id; 
+    const commentId = req.params.commentId;
+    const userId = req.user.id;
+
+    // Check if the user is an admin
+    const user = await User.findById(userId);
+    if (user.isAdmin !== true) {
+      return res.status(403).send({ error: "You are not authorized to delete comments" });
+    }
+
+    // Find the post by its ID
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).send({ error: "Post not found" });
+    }
+
+    // Find the index of the comment to delete
+    const commentIndex = post.comments.findIndex((comment) => comment.id === commentId);
+    if (commentIndex === -1) {
+      return res.status(404).send({ error: "Comment not found" });
+    }
+
+    // Remove the comment from the post's comments array
+    post.comments.splice(commentIndex, 1);
+
+    // Save the updated post
+    await post.save();
+
+    res.status(200).send({ message: "Comment deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Server error" });
   }
 };

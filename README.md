@@ -67,6 +67,6 @@
   - **Route**: `GET /posts/getComments/:id`  
   - **Description**: Fetches all comments for a specific blog post by its ID.
 
-- **Delete All Comments on a Blog Post by ID (admin user)**  
-  - **Route**: `DELETE /posts/adminDeleteComments/:id`  
+- **Delete Any Comments on a Blog Post by ID (admin user)**  
+  - **Route**: `DELETE /posts/adminDeleteComment/:id`  
   - **Description**: Deletes all comments for a specific blog post by its ID. Only accessible to admin users.

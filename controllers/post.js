@@ -220,7 +220,7 @@ module.exports.addComment = async (req, res) => {
 		if (!post) {
 		  return res.status(404).send({ error: 'Post not found' });
 		}
-		
+
 
 		let newComment = {
 			userId,
@@ -251,3 +251,20 @@ module.exports.addComment = async (req, res) => {
 
 
 // Get all comments on a post by ID (authenticated user)
+module.exports.getComments = async (req, res) => {
+	try {
+		const postId = req.params.id;
+
+		const post = await Post.findById(postId);
+		if(!post) {
+			return res.status(404).send({ error: 'No post found' });
+		}
+
+		let getAllComments = post.comments
+		res.status(200).send({comments: getAllComments});
+
+	} catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "Server error" });
+  }
+};

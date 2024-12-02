@@ -96,7 +96,7 @@ module.exports.editPost = async (req, res) => {
     }
 
     // Ensure that only the owner or an admin can update the post
-    if (post.author !== userName && !req.user.isAdmin) {
+    if (post.author !== user.user.name) {
       return res.status(403).send({ error: 'You are not authorized to update this post' });
     }
 

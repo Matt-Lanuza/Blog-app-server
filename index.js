@@ -4,6 +4,7 @@ const cors = require("cors");
 
 // Routes Middleware
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post");
 
 
 const app = express();
@@ -28,6 +29,7 @@ mongoose.connection.once('open',()=>console.log("Now connected to MongoDB Atlas"
 
 //[Backend Routes]
 app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
 
 

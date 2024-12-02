@@ -1,23 +1,30 @@
 const Post = require("../models/Post");
+const User = require('../models/User');
 
 // Create new blog post (authenticated users only)
 module.exports.createPost = async (req, res) => {
   try {
-	    const { title, content } = req.body;
-	    const userName = req.user.username;
+    const { title, content } = req.body;
+    const userId = req.user.id;
 
-	    if (!title || !content) {
-	      return res.status(400).send({ error: "All fields are required" });
-	    }
+    if (!title || !content) {
+      return res.status(400).send({ error: "All fields are required" });
+    }
 
-	    const newPost = new Post({
-	      title,
-	      content,
-	      author: userName,
-	    });
+    // Find the user by ID and get the username
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
 
-	    await newPost.save();
-	    res.status(201).send( newPost );
+    const newPost = new Post({
+      title,
+      content,
+      author: user.username,
+    });
+
+    await newPost.save();
+    res.status(201).send(newPost);
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Server error" });
@@ -74,8 +81,15 @@ module.exports.editPost = async (req, res) => {
   try {
     const postId = req.params.id;
     const { title, content } = req.body;
-    const userName = req.user.username; 
+    const userId = req.user.id;
 
+    // Find the user from the User model using the userId from JWT
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+
+    // Find the post by ID
     const post = await Post.findById(postId);
     if (!post) {
       return res.status(404).send({ error: 'No post found' });
@@ -87,8 +101,8 @@ module.exports.editPost = async (req, res) => {
     }
 
     const updatedPostData = {
-      title,
-      content,
+      title: title || post.title,
+      content: content || post.content,
     };
 
     // Update the post

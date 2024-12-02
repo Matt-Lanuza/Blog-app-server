@@ -165,13 +165,28 @@ module.exports.deletePost = async (req, res) => {
 module.exports.adminDeletePost = async (req, res) => {
 	try {
 		const postId = req.params.id;
+		const userId = req.user.id;
 
-		const deletedPost = await Post.findByIdAndDelete(postId)
-		if(!deletedPost){
-			return res.status(404).send({ error: 'No post found' });
+		// Find the user from the User model using the userId from JWT
+		const user = await User.findById(userId);
+		if (!user) {
+		  return res.status(404).send({ error: 'User not found' });
 		}
 
-		res.status(200).send({message: 'Post deleted successfully'});
+		// Check if the authenticated user is the owner of the post
+		if (user.isAdmin !== true) {
+		  return res.status(403).send({ error: 'You are not authorized to delete this post' });
+		}
+
+
+		// Find the post by ID
+		const post = await Post.findById(postId);
+		if (!post) {
+		  return res.status(404).send({ error: 'No post found' });
+		}
+
+		await Post.findByIdAndDelete(postId);
+		res.status(200).send({ message: 'Post deleted successfully' });
 
 	} catch (error) {
       console.error(error);

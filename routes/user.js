@@ -11,7 +11,7 @@ router.post('/register', userController.registerUser)
 router.post('/login', userController.loginUser);
 
 // Get user details
-// router.get('/details', userController.getUserDetails);
+router.get('/details', verify, userController.getUserDetails);
 
 
 

@@ -24,10 +24,10 @@ router.delete('/deletePost/:id', verify, postController.deletePost);
 router.delete('/adminDeletePost/:id', verify, verifyAdmin, postController.adminDeletePost);
 
 // Add comment on a post by ID (authenticated user)
-// router.post('/addComment/:id', verify, postController.addComment);
+router.post('/addComment/:id', verify, postController.addComment);
 
 // Get all comments on a post by ID (authenticated user)
-// router.get('/getComments/:id', verify, postController.getComments);
+router.get('/getComments/:id', verify, postController.getComments);
 
 // Delete any comments by ID (admin user)
 // router.delete('/adminDeleteComments/:id', verify, verifyAdmin, postController.adminDeleteComments);

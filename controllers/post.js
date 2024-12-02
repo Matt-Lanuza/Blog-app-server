@@ -193,3 +193,61 @@ module.exports.adminDeletePost = async (req, res) => {
       res.status(500).send({ message: "Server error" });
   }
 };
+
+
+// Add comment on a post by ID (authenticated user)
+module.exports.addComment = async (req, res) => {
+	try {
+
+		const postId = req.params.id;
+		const userId = req.user.id;
+		const { comment } = req.body;
+
+
+		// Check if comment is provided
+		if (!comment) {
+		  return res.status(400).send({ error: 'Comment cannot be empty' });
+		}
+
+		// Find the user from the User model using the userId from JWT
+		const user = await User.findById(userId);
+		if (!user) {
+		  return res.status(404).send({ error: 'User not found' });
+		}
+
+		// Find the post by ID
+		const post = await Post.findById(postId);
+		if (!post) {
+		  return res.status(404).send({ error: 'Post not found' });
+		}
+		
+
+		let newComment = {
+			userId,
+			username: user.username,
+			comment
+		}
+
+		const updatedPost = await Post.findByIdAndUpdate( 
+				postId,
+				{ $push: { comments: newComment } },
+				{ new: true}
+			);
+
+		res.status(200).send({
+			message: 'Comment added successfully',
+			updatedPost
+		})
+
+
+
+	} catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "Server error" });
+  }
+};
+
+
+
+
+// Get all comments on a post by ID (authenticated user)

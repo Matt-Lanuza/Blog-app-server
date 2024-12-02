@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 // Routes Middleware
-const userRoutes = require("./routes/user");
+// const userRoutes = require("./routes/user");
 
 
 const app = express();

@@ -9,8 +9,10 @@ const router = express.Router();
 router.post('/createPost', verify, postController.createPost);
 
 // Get all posts (all users)
+router.get('/getAllPosts', postController.getAllPosts);
 
 // Get a post by ID (all users)
+router.get('/getPost/:id', postController.getPost);
 
 // Update a post by ID (authenticated user)
 

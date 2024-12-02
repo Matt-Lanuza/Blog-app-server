@@ -6,7 +6,7 @@ const { verify, verifyAdmin } = require("../auth");
 const router = express.Router();
 
 // Create new blog post (authenticated user)
-router.post('/createPost', verify, userController.createPost);
+router.post('/createPost', verify, postController.createPost);
 
 // Get all posts (all users)
 

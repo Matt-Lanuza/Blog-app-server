@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 // Routes Middleware
-// const userRoutes = require("./routes/user");
+const userRoutes = require("./routes/user");
 
 
 const app = express();
@@ -27,7 +27,7 @@ mongoose.connect(MONGODB_STRING, { useNewUrlParser: true, useUnifiedTopology: tr
 mongoose.connection.once('open',()=>console.log("Now connected to MongoDB Atlas"));
 
 //[Backend Routes]
-// app.use("/users", userRoutes);
+app.use("/users", userRoutes);
 
 
 

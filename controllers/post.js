@@ -224,7 +224,7 @@ module.exports.addComment = async (req, res) => {
 
 		let newComment = {
 			userId,
-			username: user.username,
+			userName: user.username,
 			comment
 		}
 

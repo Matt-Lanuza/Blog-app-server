@@ -56,11 +56,11 @@
   - **Description**: Deletes a specific blog post by its ID. Only accessible to the post's owner.
 
 - **Delete Any Blog Post by ID (admin user)**  
-  - **Route**: `DELETE /posts/admin/deletePost/:id`  
+  - **Route**: `DELETE /posts/adminDeletePost/:id`  
   - **Description**: Allows admin users to delete any blog post by its ID.
 
 - **Delete All Comments on a Blog Post by ID (admin user)**  
-  - **Route**: `DELETE /posts/admin/deleteComments/:id`  
+  - **Route**: `DELETE /posts/adminDeleteComments/:id`  
   - **Description**: Deletes all comments for a specific blog post by its ID. Only accessible to admin users.
 
 - **Add a Comment to a Blog Post (authenticated user)**  

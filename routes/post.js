@@ -15,15 +15,21 @@ router.get('/getAllPosts', postController.getAllPosts);
 router.get('/getPost/:id', postController.getPost);
 
 // Update a post by ID (authenticated user)
+router.put('/updatePost/:id', verify, postController.updatePost);
 
 // Delete a post by ID (authenticated user)
+// router.delete('/deletePost/:id', verify, postController.deletePost);
 
 // Delete any post by ID (admin user)
-
-// Delete any comments by ID (admin user)
+// router.delete('/adminDeletePost/:id', verify, verifyAdmin, postController.adminDeletePost);
 
 // Add comment on a post by ID (authenticated user)
+// router.post('/addComment/:id', verify, postController.addComment);
 
 // Get all comments on a post by ID (authenticated user)
+// router.get('/getComments/:id', verify, postController.getComments);
+
+// Delete any comments by ID (admin user)
+// router.delete('/adminDeleteComments/:id', verify, verifyAdmin, postController.adminDeleteComments);
 
 module.exports = router;

@@ -15,10 +15,10 @@ router.get('/getAllPosts', postController.getAllPosts);
 router.get('/getPost/:id', postController.getPost);
 
 // Update a post by ID (authenticated user)
-router.put('/updatePost/:id', verify, postController.updatePost);
+router.put('/editPost/:id', verify, postController.editPost);
 
 // Delete a post by ID (authenticated user)
-// router.delete('/deletePost/:id', verify, postController.deletePost);
+router.delete('/deletePost/:id', verify, postController.deletePost);
 
 // Delete any post by ID (admin user)
 // router.delete('/adminDeletePost/:id', verify, verifyAdmin, postController.adminDeletePost);

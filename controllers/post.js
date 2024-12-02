@@ -127,15 +127,20 @@ module.exports.deletePost = async (req, res) => {
     const postId = req.params.id;
     const userId = req.user.id;
 
+    // Find the user from the User model using the userId from JWT
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+
     // Find the post by ID
     const post = await Post.findById(postId);
-    
     if (!post) {
       return res.status(404).send({ error: 'No post found' });
     }
 
     // Check if the authenticated user is the owner of the post
-    if (post.author.toString() !== userId) {
+    if (post.author !== user.username) {
       return res.status(403).send({ error: 'You are not authorized to delete this post' });
     }
 

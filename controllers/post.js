@@ -3,7 +3,7 @@ const Post = require("../models/Post");
 // Create new blog post (authenticated users only)
 module.exports.createPost = async (req, res) => {
   try {
-	    const { title, content, author } = req.body;
+	    const { title, content } = req.body;
 	    const userName = req.user.username;
 
 	    if (!title || !content) {

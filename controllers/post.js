@@ -16,7 +16,7 @@ module.exports.createPost = async (req, res) => {
     });
 
     await newPost.save();
-    res.status(201).send({ message: "Post created successfully", newPost });
+    res.status(201).send( newPost );
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Server error" });

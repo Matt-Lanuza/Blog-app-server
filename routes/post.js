@@ -21,7 +21,7 @@ router.put('/editPost/:id', verify, postController.editPost);
 router.delete('/deletePost/:id', verify, postController.deletePost);
 
 // Delete any post by ID (admin user)
-// router.delete('/adminDeletePost/:id', verify, verifyAdmin, postController.adminDeletePost);
+router.delete('/adminDeletePost/:id', verify, verifyAdmin, postController.adminDeletePost);
 
 // Add comment on a post by ID (authenticated user)
 // router.post('/addComment/:id', verify, postController.addComment);

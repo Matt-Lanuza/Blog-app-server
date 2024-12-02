@@ -29,10 +29,33 @@ module.exports.registerUser = async (req, res) => {
 
 		await newUser.save();
 		res.status(201).send({ message: 'Registered successfully' });
-		
+
 
 	} catch (error) {
         console.error(error);
         res.status(500).send({ message: 'Server error' });
     }
+}
+
+
+// Login a user
+module.exports.loginUser = async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		const user = await User.findOne({ email });
+		if(!user){
+			return res.status(400).send({ error: "Invalid credentials" });
+		}
+
+		const isMatch = await bcrypt.compare(password, user.password);
+		if (!isMatch) {
+            return res.status(400).send({ error: 'Invalid credentials' });
+        }
+
+        res.status(200).send({ access: auth.createAccessToken(user) });
+
+	} catch (error) {
+		console.error(error);
+        res.status(500).send({ message: 'Server error' });
+	}
 }

@@ -14,6 +14,9 @@ router.get('/getAllPosts', postController.getAllPosts);
 // Get a post by ID (all users)
 router.get('/getPost/:id', postController.getPost);
 
+// Get my posts (authenticated user)
+router.get('/getMyPosts', verify, postController.getMyPosts);
+
 // Update a post by ID (authenticated user)
 router.put('/editPost/:id', verify, postController.editPost);
 

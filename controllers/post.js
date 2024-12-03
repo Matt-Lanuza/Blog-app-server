@@ -75,6 +75,34 @@ module.exports.getPost = async (req, res) => {
 };
 
 
+// Get my posts (authenticated user)
+module.exports.getMyPosts = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Find the user from the User model using the userId from JWT
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+
+    const posts = await Post.find({ author: user.username });
+
+    if (posts.length === 0) {
+      return res.status(404).send({ error: 'No posts found' });
+    }
+
+    res.status(200).send(posts);
+
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "Server error" });
+  }
+};
+
+
+
 
 // Update a post by ID (authenticated user)
 module.exports.editPost = async (req, res) => {

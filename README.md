@@ -47,6 +47,10 @@
   - **Route**: `GET /posts/getPost/:id`  
   - **Description**: Fetches a specific blog post by its ID.
 
+- **Get All My Blog Posts (authenticated user)**  
+  - **Route**: `GET /posts/getMyPosts`  
+  - **Description**: Fetches all blog posts of the authenticated user.
+
 - **Edit a Blog Post by ID (authenticated user)**  
   - **Route**: `PUT /posts/editPost/:id`  
   - **Description**: Updates a blog post's details by its ID. Only accessible to the post's owner.

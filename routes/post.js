@@ -33,6 +33,6 @@ router.patch('/addComment/:id', verify, postController.addComment);
 router.get('/getComments/:id', postController.getComments);
 
 // Delete any comments by ID (admin user)
-router.delete('/adminDeleteComment/:postId/:commentId', verify, verifyAdmin, postController.adminDeleteComment);
+router.delete('/adminDeleteComment/:id/:commentId', verify, verifyAdmin, postController.adminDeleteComment);
 
 module.exports = router;

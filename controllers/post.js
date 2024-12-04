@@ -301,12 +301,13 @@ module.exports.getComments = async (req, res) => {
 // Delete any comments by ID (admin user)
 module.exports.adminDeleteComment = async (req, res) => {
   try {
-    const { postId, commentId } = req.params;
+    const postId = req.params.id; 
+    const commentId = req.params.commentId;
     const userId = req.user.id;
 
     // Check if the user is an admin
     const user = await User.findById(userId);
-    if (!user || user.isAdmin !== true) {
+    if (user.isAdmin !== true) {
       return res.status(403).send({ error: "You are not authorized to delete comments" });
     }
 
@@ -315,7 +316,6 @@ module.exports.adminDeleteComment = async (req, res) => {
     if (!post) {
       return res.status(404).send({ error: "Post not found" });
     }
-
 
     // Find the index of the comment to delete
     const commentIndex = post.comments.findIndex((comment) => comment.id === commentId);

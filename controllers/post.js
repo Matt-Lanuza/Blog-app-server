@@ -318,7 +318,7 @@ module.exports.adminDeleteComment = async (req, res) => {
 
 
     // Find the index of the comment to delete
-    const commentIndex = post.comments.findIndex((comment) => comment._id === commentId);
+    const commentIndex = post.comments.findIndex((comment) => comment.id === commentId);
     if (commentIndex === -1) {
       return res.status(404).send({ error: "Comment not found" });
     }

@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://blog-post-server.onrender.com'],
+    origin: ['http://localhost:3000', 'https://blog-post-server.onrender.com', 'https://blog-app-client-swart.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,

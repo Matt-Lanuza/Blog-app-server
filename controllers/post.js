@@ -307,7 +307,7 @@ module.exports.adminDeleteComment = async (req, res) => {
 
     // Check if the user is an admin
     const user = await User.findById(userId);
-    if (!user || !user.isAdmin) {
+    if (user.isAdmin !== true) {
       return res.status(403).send({ error: "You are not authorized to delete comments" });
     }
 
@@ -316,15 +316,10 @@ module.exports.adminDeleteComment = async (req, res) => {
     if (!post) {
       return res.status(404).send({ error: "Post not found" });
     }
+    console.log("here", post);
 
-    console.log("Post found:", post);
-    console.log("Comments:", post.comments);
-
-    // Find the index of the comment to delete (Ensure correct comparison with ObjectId)
-    const commentIndex = post.comments.findIndex((comment) =>
-      comment._id.toString() === commentId
-    );
-
+    // Find the index of the comment to delete
+    const commentIndex = post.comments.findIndex((comment) => comment.id === commentId);
     if (commentIndex === -1) {
       return res.status(404).send({ error: "Comment not found" });
     }

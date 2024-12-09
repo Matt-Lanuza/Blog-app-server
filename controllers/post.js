@@ -89,7 +89,7 @@ module.exports.getMyPosts = async (req, res) => {
     const posts = await Post.find({ author: user.username });
 
     if (posts.length === 0) {
-      return res.status(404).send({ error: 'No posts found' });
+      return res.status(200).send({ message: 'No posts found', posts: [] });
     }
 
     res.status(200).send(posts);
